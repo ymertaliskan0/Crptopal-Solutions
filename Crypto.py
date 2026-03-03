@@ -1,4 +1,6 @@
 import base64
+import sys
+
 
 # Cryptopals Challange Set #1
 
@@ -71,4 +73,39 @@ text = (b"Burning 'em, if you ain't quick and nimble\n"
 
 res = "0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272a282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f"
 # assert repeatXOR(text).hex() == res, "Assertion failed: The output does not match!"
-print(repeatXOR(text).hex())
+# print(repeatXOR(text).hex())
+
+# Question 6 Part 1 Hamming Distance
+def hammingBit(s1,s2):
+    s1 = s1.encode('utf-8')
+    s2 = s2.encode('utf-8')
+
+    total = 0
+    for b1, b2 in zip(s1, s2):
+        xor = b1 ^ b2
+        total += xor.bit_count()
+    return total
+
+# print(hammingBit("this is a test","wokka wokka!!!"))
+
+# Question 6 Prt2 findign keysize
+def findKEYSIZE(s):
+    results = []
+    for i in range(2, 41):
+        total = 0
+        blocks = 8
+        for j in range(blocks):
+            b1 = s[j * i: (j + 1) * i]
+            b2 = s[(j + 1) * i: (j + 2) * i]
+            total += hammingBit(b1, b2)
+        total /= (i * blocks)
+        results.append((total ,i))
+
+    results.sort()
+    return [r[1] for r in results[:3]]
+
+print(findKEYSIZE("0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272a282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f"))
+
+# Question 6 Part 3
+def transpose(s, keysize):
+    
