@@ -126,7 +126,7 @@ def getKey(blocks):
         result.append(res)
     return result
 
-
+# Question 6 Putting it together
 def decryptRepeatingKey(path, output_path="Set1_Q6.txt"):
     with open(path, "r") as file:
         string1 = file.read()
@@ -145,4 +145,4 @@ def decryptRepeatingKey(path, output_path="Set1_Q6.txt"):
                 out_file.write(f'DECRYPTED TEXT = {decrypted_str}\n')
                 out_file.write('-' * 50 + '\n\n')
 
-decryptRepeatingKey("6.txt")
+# decryptRepeatingKey("6.txt")
