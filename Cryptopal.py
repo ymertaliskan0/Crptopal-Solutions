@@ -1,5 +1,6 @@
 import base64
-import sys
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
 
 
 # Cryptopals Challange Set #1
@@ -146,3 +147,16 @@ def decryptRepeatingKey(path, output_path="Set1_Q6.txt"):
                 out_file.write('-' * 50 + '\n\n')
 
 # decryptRepeatingKey("6.txt")
+
+
+# Question 7 decryption using
+def decryptECBWKey(key, ciphertext):
+    decipher = AES.new(key, AES.MODE_ECB)
+    return unpad(decipher.decrypt(ciphertext), AES.block_size)
+
+# with open("7.txt", "r") as file:
+#     with open("Set1_Q7.txt", "w", encoding="utf-8") as out_file:
+#         string1 = file.read()
+#         bytes_decoded = base64.b64decode(string1)
+#         decrypted_bytes = decryptECBWKey(b"YELLOW SUBMARINE", bytes_decoded)
+#         out_file.write(decrypted_bytes.decode('utf-8'))
